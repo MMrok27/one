@@ -71,7 +71,8 @@ try:
     wynik = a / b
     print(wynik)
 except ZeroDivisionError:
-    print("sussy baka, nie dzieli sie przez 0")
+    print("sussy baka, nie dziel przez 0")
 except ValueError:
     print("sussy baka, nie wczytano liczby całkowitej")
+
 
