@@ -63,16 +63,20 @@
 #         suma.append(wynik)
 #     print(suma)
 
-a = input("wczytaj liczbe 1: ")
-b = input("wczytaj liczbe 2: ")
-try:
-    a = int(a)
-    b = int(b)
-    wynik = a / b
-    print(wynik)
-except ZeroDivisionError:
-    print("sussy baka, nie dziel przez 0")
-except ValueError:
-    print("sussy baka, nie wczytano liczby całkowitej")
+# a = input("wczytaj liczbe 1: ")
+# b = input("wczytaj liczbe 2: ")
+# try:
+#     a = int(a)
+#     b = int(b)
+#     wynik = a / b
+#     print(wynik)
+# except ZeroDivisionError:
+#     print("sussy baka, nie dziel przez 0")
+# except ValueError:
+#     print("sussy baka, nie wczytano liczby całkowitej")
 
+lista = [1,2,3,10]
+slownik = {'k1':2 , 'k2':10}
+slownik['k3']=6;
+print(slownik['k3'])
 
