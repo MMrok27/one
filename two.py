@@ -186,3 +186,28 @@ def cl(** rzeczy):
         print(rzeczy[cos])
 
 cl(gry=['Terraria','MGR:R'])
+
+######################ZAD 1################################
+import random
+
+lista = [1-x for x in range(1, 11)]
+print(lista)
+
+listb = [4**x for x in range(0, 6)]
+print(listb)
+
+listc = [x for x in listb if x % 2 == 0]
+print(listc)
+
+######################ZAD 2################################
+
+
+
+list1 = [random.randint(1, 100) for x in range(0, 10)]
+print(list1)
+
+list2 = [x for x in list1 if x % 2 == 0]
+print(list2)
+
+######################ZAD 3################################
+zakupy = {"mleko": "szt"}
