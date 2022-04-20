@@ -73,3 +73,26 @@ grupa = df.groupby(['Kontynent'])
 print(grupa.get_group('xqcL'))
 
 print(df.groupby(['Kontynent']).agg({'Populacja':['sum']}))
+
+import numpy as np
+import pandas as pd
+#1
+xlsx = pd.ExcelFile('imiona.xlsx')
+df = pd.read_excel(xlsx,header=0)
+print(df)
+#2
+print(df[df['Liczba']>1000])
+print(df[df['Imie']=='MICHAŁ'])
+print(df.agg({'Liczba':['sum']}))
+
+print(df[((df.Rok > 1999) & (df.Rok < 2005))].agg({'Liczba':['sum']}))
+print(df.groupby(['Plec']).agg({'Liczba':['sum']}))
+
+
+print(df.sort_values(by='Liczba',ascending=False).groupby(['Plec']).head(1))
+
+print(df.sort_values(by='Liczba',ascending=False).groupby(['Plec']).head(1))
+
+
+
+
