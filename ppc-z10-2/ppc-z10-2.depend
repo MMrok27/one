@@ -1,0 +1,13 @@
+# depslib dependency file v1.0
+1652971707 source:d:\166298\cw11\ppc-z10-2\main.c
+	<stdio.h>
+	<stdlib.h>
+	"DigitalClock.h"
+
+1652971677 d:\166298\cw11\ppc-z10-2\digitalclock.h
+
+1652971688 source:d:\166298\cw11\ppc-z10-2\digitalclock.c
+	"DigitalClock.h"
+	<stdio.h>
+	<stdlib.h>
+
