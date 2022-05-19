@@ -1,0 +1,61 @@
+# depslib dependency file v1.0
+1652361920 source:d:\166298\cw10\main.c
+	<stdio.h>
+	"namedpoint.h"
+
+1652354100 d:\166298\cw10\namedpoint.h
+	"point.h"
+
+1652354100 d:\166298\cw10\point.h
+
+1652354100 source:d:\166298\cw10\namedpoint.c
+	<stdio.h>
+	<math.h>
+	<string.h>
+	"namedpoint.h"
+
+1652354100 source:d:\166298\cw10\point.c
+	<stdio.h>
+	<math.h>
+	"point.h"
+
+1652966972 source:d:\166298\cw10\ppc-z10\main.c
+	<stdio.h>
+	"LineSegment.h"
+	"point.h"
+	"Triangle.h"
+
+1652354100 d:\166298\cw10\ppc-z10\namedpoint.h
+	"point.h"
+
+1652966734 d:\166298\cw10\ppc-z10\point.h
+
+1652354100 source:d:\166298\cw10\ppc-z10\namedpoint.c
+	<stdio.h>
+	<math.h>
+	<string.h>
+	"namedpoint.h"
+
+1652354100 source:d:\166298\cw10\ppc-z10\point.c
+	<stdio.h>
+	<math.h>
+	"point.h"
+
+1652969698 source:d:\166298\cw10\ppc-z10\linesegment.c
+	<stdio.h>
+	<math.h>
+	<string.h>
+	"LineSegment.h"
+
+1652966235 d:\166298\cw10\ppc-z10\linesegment.h
+	"point.h"
+	<stdbool.h>
+
+1652967202 source:d:\166298\cw10\ppc-z10\triangle.c
+	<stdio.h>
+	<math.h>
+	"Triangle.h"
+
+1652966496 d:\166298\cw10\ppc-z10\triangle.h
+	"point.h"
+
