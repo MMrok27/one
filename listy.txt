@@ -1,0 +1,134 @@
+Listy jednokierunkowe
+Listy jednokierunkowe
+Tworzenie pustej listy bez głowy
+
+struct element * utworz()
+{
+    return NULL;
+};
+Tworzenie pustej listy z głową
+
+struct element * utworz()
+{
+    struct element * wskaznik = malloc(sizeof(struct element));
+    wskaznik->next=NULL;
+    return wskaznik;
+}
+Przejście po wszystkich elementach listy i ich wyświetlenie
+Lista bez głowy
+
+void wyswietlListeBezGlowy(struct element*Lista)
+{
+    struct element*temp=Lista;
+    if(temp==NULL)
+    {
+        printf("Lista jest pusta\n");
+    }
+    while(temp!=NULL)
+    {
+        printf("%d\n",temp->i);
+        temp=temp->next;
+    }
+    printf("----\n");
+}
+Lista z głową
+
+void wyswietlListeZGlowa(struct element*Lista)
+{
+    struct element*temp=Lista->next;
+    if(temp==NULL)
+    {
+        printf("Lista jest pusta\n");
+    }
+    while(temp!=NULL)
+    {
+        printf("%d\n",temp->i);
+        temp=temp->next;
+    }
+    printf("----\n");
+}
+Dodanie nowego elementu na początek listy
+Lista bez głowy
+
+struct element* dnp(struct element*Lista, int a)
+{
+    struct element * wsk = malloc(sizeof(struct element));
+    wsk->i=a;
+    wsk->next=Lista;
+    return wsk;
+}
+Lista z głową
+
+void dnp(struct element*Lista, int a)
+{
+    struct element * wsk = malloc(sizeof(struct element));
+    wsk->i=a;
+    wsk->next=Lista->next;
+    Lista->next=wsk;
+}
+Dodanie nowego elementu na koniec
+Lista bez głowy
+
+struct element* dnk(struct element*Lista, int a)
+{
+    struct element * wsk ;
+    if(Lista==NULL)
+    {
+        wsk=malloc(sizeof(struct element));
+        Lista=wsk;
+    }
+    else
+    {
+        wsk=Lista;
+        while(wsk->next!=NULL)
+        {
+            wsk=wsk->next;
+        }
+        wsk->next=malloc(sizeof(struct element));
+        wsk=wsk->next;
+    }
+    wsk->i=a;
+    wsk->next=NULL;
+    return Lista;
+}
+Lista z głową
+
+void dnk(struct element*Lista, int a)
+{
+    struct element * wsk =  Lista;
+    while(wsk->next!=NULL)
+    {
+        wsk=wsk->next;
+    }
+    wsk->next=malloc(sizeof(struct element));
+    wsk=wsk->next;
+    wsk->i=a;
+    wsk->next=NULL;
+};
+Usunięcie wszystkich elementów listy i ustawienie pustej listy
+Lista bez głowy
+struct element* wyczysc(struct element*Lista)
+{
+    struct element*wsk=Lista;
+    while(Lista!=NULL)
+    {
+        Lista=Lista->next;
+        free(wsk);
+        wsk=Lista;
+    }
+    Lista=NULL;
+    return Lista;
+}
+Lista z głową
+void wyczysc(struct element*Lista)
+{
+    struct element*wsk=Lista->next;
+    struct element*wsk2=Lista->next;
+    while(wsk2!=NULL)
+    {
+        wsk2=wsk2->next;
+        free(wsk);
+        wsk=wsk2;
+    }
+    Lista->next=NULL;
+}
