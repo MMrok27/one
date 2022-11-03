@@ -1,0 +1,238 @@
+from typing import Any, List, Callable
+from qqueue import Queue
+import graphviz
+
+
+class TreeNode:
+    value: Any
+    children: List['TreeNode']
+
+    def __init__(self, value):
+        self.value = value
+        self.children = []
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+    def is_leaf(self) -> bool:
+        return len(self.children) == 0
+
+    def add(self, child: 'TreeNode'):
+        self.children.append(child)
+
+    def for_each_deep_first(self, visit: Callable[['TreeNode'], None]) -> None:
+        visit(self)
+        for child in self.children:
+            child.for_each_deep_first(visit)
+
+    def for_each_level_order(self, visit: Callable[['TreeNode'], None]) -> None:
+        visit(self)
+        to_visit = Queue()
+        for child in self.children:
+            to_visit.enqueue(child)
+        while len(to_visit) != 0:
+            to_visit.dequeue().for_each_level_order(visit)
+
+    def search(self, value: Any):
+        arr = []
+        self.for_each_deep_first(lambda x: arr.append(x) if x.value == value else None)
+        return arr
+
+
+class Tree:
+    root: TreeNode
+
+    def __init__(self, root):
+        self.root = root
+
+    def add(self, value: Any, parent_name: Any):
+        parent_name.add(TreeNode(value))
+
+    def for_each_level_order(self, visit: Callable[['TreeNode'], None]) -> None:
+        self.root.for_each_level_order(visit)
+
+    def for_each_deep_first(self, visit: Callable[['TreeNode'], None]) -> None:
+        self.root.for_each_deep_first(visit)
+
+    def show(self):
+        dot = graphviz.Digraph('Graph')
+        self.for_each_deep_first(lambda x: dot.node(str(x), str(x)))
+        self.for_each_deep_first(lambda x: dot.edges([(str(x), str(a)) for a in x.children]))
+        print(dot.source)
+
+
+def main():
+    d = TreeNode('D')
+    d.add(TreeNode('C'))
+    d.add(TreeNode('E'))
+    b = TreeNode('B')
+    b.add(TreeNode('A'))
+    b.add(d)
+    i = TreeNode('I')
+    i.add(TreeNode('H'))
+    g = TreeNode('G')
+    g.add(i)
+    f = TreeNode('F')
+    f.add(g)
+    f.add(b)
+    tree = Tree(f)
+    tree.show()
+
+
+if __name__ == '__main__':
+    main()
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    from linkedlist import LinkedList
+from typing import Any
+
+
+
+class Queue:
+    _storage: LinkedList
+
+    def __init__(self):
+        self._storage = LinkedList()
+
+    def __len__(self):
+        return len(self._storage)
+    
+    def __str__(self) -> str:
+        result = ''
+        cur = self._storage.head
+        while cur is not None:
+            result += f'{cur.value}, '
+            cur = cur.next
+        return result
+
+    def peek(self) -> Any:
+        return self._storage.tail
+
+    def enqueue(self, element: Any) -> None:
+        self._storage.push(element)
+
+    def dequeue(self) -> Any:
+        return self._storage.remove_last()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+from typing import Any
+
+
+class Node:
+    value: Any
+    next: 'Node'
+
+    def __init__(self, value: Any, nxt: 'Node' = None):
+        self.value = value
+        self.next = nxt
+
+
+class LinkedList:
+    head: Node = None
+    tail: Node = None
+
+    def __len__(self) -> int:
+        if self.head is None:
+            return 0
+        result = 1
+        current = self.head
+        while current.next is not None:
+            result += 1
+            current = current.next
+        return result
+
+    def __str__(self) -> str:
+        if self.head is None:
+            return ''
+        cur = self.head
+        result = str(cur.value)
+        while cur.next is not None:
+            cur = cur.next
+            result += f' -> {cur.value}'
+        return result
+
+    def push(self, value: Any) -> None:
+        if self.head is None:
+            self.head = Node(value)
+            self.tail = self.head
+            return
+
+        temp = self.head
+        self.head = Node(value, temp)
+
+    def append(self, value: Any) -> None:
+        if self.tail is None:
+            self.head = Node(value)
+            self.tail = self.head
+            return
+
+        self.tail.next = Node(value)
+        self.tail = self.tail.next
+
+    def node(self, at: int) -> Node:
+        cur = self.head
+        if at == 0:
+            return cur
+
+        for i in range(at):
+            if cur.next is None:
+                raise IndexError
+            cur = cur.next
+
+        return cur
+
+    def insert(self, value: Any, after: Node) -> None:
+        if after is self.tail:
+            self.append(value)
+            return
+        temp = after.next
+        after.next = Node(value, temp)
+
+    def pop(self) -> Any:
+        temp = self.head
+        self.head = temp.next
+        return temp.value
+
+    def remove_last(self) -> Any:
+        if self.head is self.tail:
+            value = self.head.value
+            self.head = None
+            self.tail = None
+            return value
+        cur = self.head
+        while cur.next is not self.tail:
+            print(cur.value)
+            cur = cur.next
+
+        value = self.tail.value
+        self.tail = cur
+        cur.next = None
+        return value
+
+    def remove(self, after: Node) -> Any:
+        if after is self.tail:
+            raise IndexError
+        value = after.next.value
+        after.next = after.next.next
+        return value
+
