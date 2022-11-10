@@ -1,0 +1,98 @@
+from typing import Any, Callable
+import graphviz
+
+
+class BinaryNode:
+    value: Any
+    left_child: 'BinaryNode'
+    right_child: 'BinaryNode'
+
+    def __init__(self, val: Any):
+        self.value = val
+        self.left_child = None
+        self.right_child = None
+
+    def __str__(self):
+        return str(self.value)
+
+    def is_leaf(self):
+        return self.left_child is None and self.right_child is None
+
+    def add_left_child(self, value: Any):
+        self.left_child = BinaryNode(value)
+
+    def add_right_child(self, value: Any):
+        self.right_child = BinaryNode(value)
+
+    def traverse_in_order(self, visit: Callable[[Any], None]):
+        if self.left_child is not None:
+            self.left_child.traverse_in_order(visit)
+        visit(self)
+        if self.right_child is not None:
+            self.right_child.traverse_in_order(visit)
+
+    def traverse_post_order(self, visit: Callable[[Any], None]):
+        if self.left_child is not None:
+            self.left_child.traverse_in_order(visit)
+        if self.right_child is not None:
+            self.right_child.traverse_in_order(visit)
+        visit(self)
+
+    def traverse_pre_order(self, visit: Callable[[Any], None]):
+        visit(self)
+        if self.left_child is not None:
+            self.left_child.traverse_in_order(visit)
+        if self.right_child is not None:
+            self.right_child.traverse_in_order(visit)
+
+    def add_edges(self, dot: graphviz.Digraph):
+        if self.left_child is not None:
+            dot.edge(str(self), str(self.left_child))
+        if self.right_child is not None:
+            dot.edge(str(self), str(self.right_child))
+
+
+class BinaryTree:
+    root: BinaryNode
+
+    def __init__(self, root_val: Any):
+        self.root = BinaryNode(root_val)
+
+    def traverse_in_order(self, visit: Callable[[Any], None]):
+        self.root.traverse_in_order(visit)
+
+    def traverse_post_order(self, visit: Callable[[Any], None]):
+        self.root.traverse_post_order(visit)
+
+    def traverse_pre_order(self, visit: Callable[[Any], None]):
+        self.root.traverse_pre_order(visit)
+
+    def show(self):
+        dot = graphviz.Digraph('Graph')
+        self.traverse_in_order(lambda x: dot.node(str(x), str(x)))
+        self.traverse_in_order(lambda x: x.add_edges(dot))
+        print(dot.source)
+
+
+def main():
+    tree = BinaryTree(10)
+    a = tree.root
+    a.add_left_child(9)
+    a.add_right_child(2)
+    a.left_child.add_left_child(1)
+    a.left_child.add_right_child(3)
+    a.right_child.add_left_child(4)
+    a.right_child.add_right_child(6)
+    tree.show()
+
+    assert tree.root.value == 10
+
+    assert tree.root.right_child.value == 2
+    assert tree.root.right_child.is_leaf() is False
+
+    assert tree.root.left_child.left_child.value == 1
+    assert tree.root.left_child.left_child.is_leaf() is True
+
+
+if __name__ == '__main__':
+    main()
