@@ -1,0 +1,68 @@
+from typing import List
+
+class State:
+    board:List[bool]
+    position:int
+    action:int
+
+    def __init__(self, board:List[bool], position:int, action: int, prev):
+        self.board = board
+        self.position = position
+        self.action = action
+        self.prev = prev
+
+    def is_clean(self) -> bool:
+        for b in self.board:
+            if not b:
+                return False
+        return True
+
+    def __eq__(self, other):
+        if self is other:
+            return True
+        if other is None or type(self) != type(other):
+            return False
+        return self.board == other.board and self.position == other.position and self.action == other.action and self.prev == other.prev
+
+
+class Zad1:
+    actions = ['left', 'right', 'clean']
+    def clean(board, start):
+        visited = set()
+        queue = []
+        queue.append(State(board[:], start, -1, None))
+
+        while queue:
+            size = len(queue)
+            for _ in range(size):
+                current = queue.pop(0)
+                if current in visited:
+                    continue
+                visited.add(current)
+                if current.is_clean():
+                    stack = []
+                    while current:
+                        stack.append("START" if current.action == -1 else Zad1.actions[current.action])
+                        current = current.prev
+                    sb = []
+                    while stack:
+                        sb.append(stack.pop())
+                        sb.append(" -> ")
+                    sb.append("DONE!")
+                    return ''.join(sb)
+                if current.position > 0:
+                    temp = State(board[:], current.position - 1, 0, current)
+                    if temp not in visited:
+                        queue.append(temp)
+                if current.position < len(current.board) - 1:
+                    temp = State(board[:], current.position + 1, 1, current)
+                    if temp not in visited:
+                        queue.append(temp)
+                if not current.board[current.position]:
+                    tempBoard = board[:]
+                    tempBoard[current.position] = True
+                    temp = State(tempBoard, current.position, 2, current)
+                    if temp not in visited:
+                        queue.append(temp)
+                return "No solution found!"
+
